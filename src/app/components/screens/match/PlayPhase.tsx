@@ -5,6 +5,7 @@ import { PlayerCardComponent } from '../../PlayerCardComponent';
 import { ActionCardComponent } from '../../ActionCardComponent';
 import { useMatchNav } from '../MatchScreen';
 import { TutorialTip } from '../../TutorialTip';
+import { GameIcon } from '../../GameIcon';
 
 const PLAY_STEPS = [
   {
@@ -31,7 +32,7 @@ const PLAY_STEPS = [
     title: 'Risky Cards',
     body: (
       <>
-        Cards with <span className="neon-red">⚠</span> are <span className="neon-red">risky</span> —
+        Cards with <GameIcon name="warning" className="inline text-sm neon-red" /> are <span className="neon-red">risky</span> —
         they give a big power boost but can backfire with a foul or red card.
         A red card removes a player for the rest of the match.
       </>
@@ -90,7 +91,7 @@ export function PlayPhase() {
         <div className="flex items-center gap-2">
           <span className="live-dot" />
           <span className="neon-red text-[10px] uppercase tracking-[0.2em] font-mono">
-            CPU // {state.playerAttacking ? '🛡 DEFENDING' : '⚔ ATTACKING'}
+            CPU // <GameIcon name={state.playerAttacking ? 'shield' : 'score'} className="inline text-xs" /> {state.playerAttacking ? 'DEFENDING' : 'ATTACKING'}
           </span>
         </div>
         <div className="flex gap-1">
@@ -112,7 +113,7 @@ export function PlayPhase() {
             {state.selectedPlayerCard ? (
               <PlayerCardComponent card={state.selectedPlayerCard} selected size="sm" />
             ) : (
-              <div className="w-20 h-28 border border-dashed border-[#5CDFFF]/30 flex items-center justify-center text-[#5CDFFF]/30 text-xs clip-cyber-sm">─</div>
+              <div className="w-24 h-36 border border-dashed border-[#5CDFFF]/30 flex items-center justify-center text-[#5CDFFF]/30 text-xs clip-cyber-sm">-</div>
             )}
           </div>
           <div className="text-[#5CDFFF]/40 self-center text-lg font-display pb-6">+</div>
@@ -153,7 +154,7 @@ export function PlayPhase() {
             />
           )) : (
             <div className="w-full text-center text-[#ff5a7a] text-xs py-6 border border-[#ff2e63]/40 bg-[#ff2e63]/10 clip-cyber-sm font-mono uppercase tracking-widest">
-              ⚠ ROSTER DEPLETED
+              <GameIcon name="warning" className="inline text-sm" /> ROSTER DEPLETED
             </div>
           )}
         </div>

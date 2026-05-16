@@ -1,26 +1,31 @@
+import { useState, type CSSProperties } from 'react';
 import { PlayerCard } from '../data/cards';
+import { GameIcon } from './GameIcon';
 
 const tierStyles = {
   silver: {
-    border: 'border-[#7c8aa0]',
-    bg: 'bg-gradient-to-br from-[#1a2030] via-[#0e1424] to-[#1a2030]',
-    label: 'text-[#a8b8cc]',
+    border: 'border-[#8e9aab]',
+    accent: '#aeb8c8',
+    accentSoft: 'rgba(174,184,200,0.34)',
+    text: 'text-[#d6deea]',
+    bg: 'from-[#f0f3f8] via-[#aeb8c8] to-[#647184]',
     glow: 'glow-silver',
-    tag: 'bg-[#7c8aa0] text-[#04101a]',
   },
   gold: {
     border: 'border-[#ffb13d]',
-    bg: 'bg-gradient-to-br from-[#2a1f0a] via-[#0e1424] to-[#2a1f0a]',
-    label: 'text-[#ffd07a]',
+    accent: '#ffb13d',
+    accentSoft: 'rgba(255,177,61,0.36)',
+    text: 'text-[#ffe1a6]',
+    bg: 'from-[#fff2b0] via-[#ffb13d] to-[#d08312]',
     glow: 'glow-gold',
-    tag: 'bg-[#ffb13d] text-[#1a0f00]',
   },
   purple: {
     border: 'border-[#ba6eff]',
-    bg: 'bg-gradient-to-br from-[#1c1130] via-[#0e1424] to-[#1c1130]',
-    label: 'text-[#d6a8ff]',
+    accent: '#ba6eff',
+    accentSoft: 'rgba(186,110,255,0.38)',
+    text: 'text-[#edd8ff]',
+    bg: 'from-[#f2dcff] via-[#ba6eff] to-[#6c28c8]',
     glow: 'glow-purple',
-    tag: 'bg-[#ba6eff] text-[#0e0420]',
   },
 };
 
@@ -37,48 +42,72 @@ interface Props {
 export function PlayerCardComponent({ card, selected, disabled, redCarded, used, onClick, size = 'md' }: Props) {
   const tier = tierStyles[card.tier];
   const isInactive = disabled || redCarded || used;
-  const w = size === 'sm' ? 'w-20' : 'w-28';
-  const h = size === 'sm' ? 'h-28' : 'h-40';
+  const [imageFailed, setImageFailed] = useState(false);
+  const isSmall = size === 'sm';
+  const w = isSmall ? 'w-24' : 'w-32';
+  const h = isSmall ? 'h-36' : 'h-48';
 
   return (
     <button
       onClick={isInactive ? undefined : onClick}
-      className={`${w} ${h} relative flex flex-col items-center justify-between p-2 border ${tier.border} ${tier.bg} ${tier.glow} clip-cyber-sm shrink-0 transition-all
+      className={`${w} ${h} player-card-frame relative overflow-hidden border-2 ${tier.border} ${tier.glow} shrink-0 transition-all
         ${selected ? 'selected-ring scale-105' : ''}
-        ${isInactive ? 'opacity-30 grayscale cursor-not-allowed' : 'cursor-pointer card-hover'}
+        ${isInactive ? 'opacity-35 grayscale cursor-not-allowed' : 'cursor-pointer card-hover'}
       `}
+      style={{ '--player-accent': tier.accent, '--player-accent-soft': tier.accentSoft } as CSSProperties}
     >
-      {/* Corner brackets */}
-      <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#5CDFFF]/60" />
-      <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#5CDFFF]/60" />
+      <div className="absolute inset-0 bg-[#0f1623]" />
 
-      {/* Tier tag */}
-      <div className={`absolute -top-px -left-px ${tier.tag} clip-tag-l px-1.5 ${size === 'sm' ? 'text-[7px]' : 'text-[8px]'} font-mono uppercase tracking-widest`}>
-        {card.tier}
+      <div className="absolute inset-x-1 top-1 bottom-[24%] overflow-hidden bg-[#eceff2] shadow-[inset_0_0_0_1px_rgba(0,0,0,0.22)]">
+        {!imageFailed ? (
+          <img
+            src={card.image}
+            alt=""
+            className="h-full w-full object-cover object-top"
+            onError={() => setImageFailed(true)}
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center bg-[linear-gradient(135deg,#f7f7f4_0%,#f7f7f4_32%,rgba(255,255,255,0.85)_33%,rgba(255,255,255,0.85)_45%,var(--player-accent)_46%,#ffffff_61%,#111827_62%,#111827_72%,#d71930_73%)]">
+            <GameIcon name={card.icon} className={`${isSmall ? 'text-4xl' : 'text-6xl'} text-[#111827] drop-shadow-[0_2px_0_rgba(255,255,255,0.65)]`} />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,transparent_24%,rgba(255,255,255,0.74)_25%,rgba(255,255,255,0.22)_38%,transparent_39%),linear-gradient(115deg,transparent_0%,transparent_62%,rgba(190,0,28,0.48)_63%,rgba(190,0,28,0.95)_79%,transparent_80%)]" />
       </div>
 
-      {redCarded && (
-        <div className="absolute inset-0 bg-[#ff2e63]/30 flex items-center justify-center z-10 backdrop-blur-[1px]">
-          <span className="text-[#ff5a7a] text-3xl font-display drop-shadow-[0_0_8px_rgba(255,46,99,0.7)]">✕</span>
+      <div className={`absolute top-0 right-0 z-30 bg-gradient-to-br ${tier.bg} text-[#070910] border-l-2 border-b-2 border-black/45 shadow-[0_4px_10px_rgba(0,0,0,0.4)] ${isSmall ? 'w-9 h-7' : 'w-11 h-8'} flex flex-col items-center justify-center`}>
+        <span className={`${isSmall ? 'text-xs' : 'text-sm'} font-display font-black leading-none tracking-normal`}>
+          {card.rating}
+        </span>
+        <span className={`${isSmall ? 'text-[5px]' : 'text-[6px]'} font-mono font-black leading-none tracking-[0.1em]`}>
+          OVR
+        </span>
+      </div>
+
+      <div className={`absolute top-1.5 left-1.5 z-30 bg-black/55 px-1.5 py-0.5 border border-white/15 ${tier.text} font-display font-black uppercase tracking-[0.06em] ${isSmall ? 'text-[6px]' : 'text-[7px]'}`}>
+        {card.role}
+      </div>
+
+      <div className="absolute inset-x-1 bottom-[24%] z-30 bg-[linear-gradient(180deg,rgba(46,46,50,0.46),rgba(29,31,37,0.94))] px-1.5 py-1 backdrop-blur-[1px] border-t border-white/10">
+        <div className={`${isSmall ? 'text-[6px]' : 'text-[8px]'} text-white/90 font-mono truncate normal-case tracking-normal text-center`}>
+          {card.trait}
         </div>
-      )}
+      </div>
 
-      <div className={`${size === 'sm' ? 'text-2xl' : 'text-3xl'} mt-2`}>{card.emoji}</div>
-      <div className="text-center w-full">
-        <div className={`${size === 'sm' ? 'text-[10px]' : 'text-xs'} text-white truncate w-full font-display tracking-wider uppercase`}>{card.name}</div>
-        <div className={`${tier.label} ${size === 'sm' ? 'text-[8px]' : 'text-[9px]'} uppercase tracking-[0.2em] font-mono`}>{card.role}</div>
-      </div>
-      <div className="flex items-baseline gap-1 mt-auto">
-        <span className="neon-cyan text-lg font-display">{card.rating}</span>
-        <span className="text-gray-500 text-[8px] font-mono tracking-widest">OVR</span>
-      </div>
-      <div className={`${size === 'sm' ? 'text-[7px]' : 'text-[8px]'} text-gray-400 truncate w-full text-center font-mono uppercase tracking-wider border-t border-[#1e2538] pt-1`}>
-        {card.trait}
+      <div className="absolute inset-x-0 bottom-0 z-30 flex h-[24%] items-center justify-center bg-[linear-gradient(180deg,#202836,#121824)] px-2">
+        <div className={`${isSmall ? 'text-[8px]' : 'text-[11px]'} text-white font-display font-black tracking-[0.02em] truncate normal-case leading-none`}>
+          {card.name}
+        </div>
       </div>
 
       {used && !redCarded && (
-        <div className="absolute top-1 right-1 text-[7px] text-amber-400 bg-amber-500/20 border border-amber-500/40 px-1 font-mono uppercase tracking-widest">
+        <div className="absolute top-7 right-1 z-30 text-[7px] text-amber-300 bg-black/65 border border-amber-500/50 px-1 font-mono uppercase tracking-widest">
           USED
+        </div>
+      )}
+
+      {redCarded && (
+        <div className="absolute inset-0 bg-[#ff2e63]/35 flex items-center justify-center z-40 backdrop-blur-[1px]">
+          <GameIcon name="close" className="text-[#ff5a7a] text-4xl drop-shadow-[0_0_8px_rgba(255,46,99,0.9)]" />
         </div>
       )}
     </button>

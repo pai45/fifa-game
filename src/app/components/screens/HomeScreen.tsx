@@ -5,6 +5,7 @@ import { HeaderBar } from '../HeaderBar';
 import { TutorialTip } from '../TutorialTip';
 import { resetTutorial } from '../../tutorial';
 import { Toast } from '../Toast';
+import { GameIcon } from '../GameIcon';
 
 const HOME_STEPS = [
   {
@@ -67,22 +68,22 @@ export function HomeScreen() {
       <HeaderBar title="Pitch Duel" subtitle="// Main Terminal" onBack={() => navigate('/')} />
 
       <div className="flex-1 flex flex-col items-center justify-center px-6 gap-4 py-8 relative scanlines">
-        <div className="text-5xl drop-shadow-[0_0_18px_rgba(92,223,255,0.5)] mb-1">⚽</div>
+        <GameIcon name="soccer" className="text-5xl text-[#5CDFFF] drop-shadow-[0_0_18px_rgba(92,223,255,0.5)] mb-1" />
 
         <div className={`chip ${deckReady ? 'chip-lime' : 'chip-amber'} flicker`}>
           {deckReady ? '● DECK ONLINE' : '◐ DEFAULT LOADOUT'}
         </div>
 
         <div className="w-full max-w-xs flex flex-col gap-3 mt-4">
-          <button onClick={startMatch} className="cyber-btn clip-cyber-btn w-full py-3 text-sm">
-            ⚔ PLAY MATCH
+          <button onClick={startMatch} className="cta-block cta-primary text-sm">
+            Play Match
           </button>
 
           <button
             onClick={() => navigate('/deck-builder')}
-            className="cyber-btn-ghost clip-cyber-btn w-full py-3 text-sm tracking-[0.18em] uppercase"
+            className="cta-block cta-secondary text-sm"
           >
-            ▣ Deck Builder
+            Deck Builder
           </button>
 
           <button

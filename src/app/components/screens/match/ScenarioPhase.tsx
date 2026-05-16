@@ -5,6 +5,7 @@ import { HeaderBar } from '../../HeaderBar';
 import { ScoreBar } from '../../ScoreBar';
 import { useMatchNav } from '../MatchScreen';
 import { TutorialTip } from '../../TutorialTip';
+import { GameIcon } from '../../GameIcon';
 
 const SCENARIO_STEPS = [
   {
@@ -60,15 +61,18 @@ export function ScenarioPhase() {
           className="flex flex-col items-center gap-4 text-center z-10 cyber-panel clip-cyber px-6 py-6 max-w-sm w-full scan-sweep"
         >
           <div className="text-[10px] text-[#5CDFFF]/60 font-mono uppercase tracking-[0.3em]">▸ Scenario Loaded</div>
-          <div className="text-6xl drop-shadow-[0_0_18px_rgba(92,223,255,0.5)]">{state.currentScenario.icon}</div>
+          <GameIcon
+            name={state.currentScenario.icon}
+            className="text-6xl text-[#5CDFFF] drop-shadow-[0_0_18px_rgba(92,223,255,0.5)]"
+          />
           <h2 className="neon-cyan uppercase tracking-[0.25em] font-display text-lg">
             {state.currentScenario.title}
           </h2>
           <p className="text-gray-400 text-xs max-w-xs leading-relaxed font-mono">{state.currentScenario.description}</p>
 
           <div className="flex gap-3 mt-2">
-            <span className="chip chip-lime">⚔ ATK +{state.currentScenario.attackBonus}</span>
-            <span className="chip">🛡 DEF +{state.currentScenario.defenseBonus}</span>
+            <span className="chip chip-lime"><GameIcon name="score" className="text-xs" /> ATK +{state.currentScenario.attackBonus}</span>
+            <span className="chip"><GameIcon name="shield" className="text-xs" /> DEF +{state.currentScenario.defenseBonus}</span>
           </div>
 
           <div className="hud-line w-full mt-2" />
@@ -78,7 +82,10 @@ export function ScenarioPhase() {
               ? 'border-[#b6ff3d] text-[#b6ff3d] bg-[#b6ff3d]/10 shadow-[0_0_18px_rgba(182,255,61,0.25)]'
               : 'border-[#5CDFFF] neon-cyan bg-[#5CDFFF]/10 shadow-[0_0_18px_rgba(92,223,255,0.25)]'
           }`}>
-            {state.playerAttacking ? '⚔ ROLE: ATTACK' : '🛡 ROLE: DEFEND'}
+            <span className="inline-flex items-center justify-center gap-2">
+              <GameIcon name={state.playerAttacking ? 'score' : 'shield'} className="text-base" />
+              ROLE: {state.playerAttacking ? 'ATTACK' : 'DEFEND'}
+            </span>
           </div>
         </motion.div>
 

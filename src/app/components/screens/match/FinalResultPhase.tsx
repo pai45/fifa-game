@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { useGame } from '../../../context/GameContext';
 import { HeaderBar } from '../../HeaderBar';
 import { TutorialTip } from '../../TutorialTip';
+import { GameIcon } from '../../GameIcon';
 
 const FINAL_STEPS = [
   {
@@ -13,7 +14,7 @@ const FINAL_STEPS = [
     title: 'MVP',
     body: (
       <>
-        The <span className="text-amber-400">⭐ MVP</span> card is your top scorer this match —
+        The <span className="text-amber-400">MVP</span> card is your top scorer this match —
         the player whose action led to a goal.
       </>
     ),
@@ -61,10 +62,10 @@ export function FinalResultPhase() {
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring' }}
-          className="text-7xl z-10"
+          className="z-10"
           style={{ filter: `drop-shadow(0 0 24px ${playerWins ? 'rgba(92,223,255,0.7)' : 'rgba(255,46,99,0.7)'})` }}
         >
-          {playerWins ? '🏆' : '💔'}
+          <GameIcon name={playerWins ? 'trophy' : 'broken'} className={`text-7xl ${playerWins ? 'text-[#5CDFFF]' : 'text-[#ff5a7a]'}`} />
         </motion.div>
 
         <div className={`text-2xl uppercase tracking-[0.3em] font-display z-10 ${playerWins ? 'neon-cyan' : 'neon-red'}`}>
@@ -92,8 +93,12 @@ export function FinalResultPhase() {
 
         {mvp && (
           <div className="cyber-panel clip-cyber px-4 py-3 text-center min-w-[200px] z-10" style={{ borderColor: 'rgba(255,177,61,0.4)', boxShadow: '0 0 16px rgba(255,177,61,0.2)' }}>
-            <div className="text-amber-400 text-[10px] uppercase tracking-[0.25em] font-mono mb-1">⭐ MVP</div>
-            <div className="text-white text-sm font-display tracking-wider">{mvp.emoji} {mvp.name}</div>
+            <div className="text-amber-400 text-[10px] uppercase tracking-[0.25em] font-mono mb-1">
+              <GameIcon name="trophy" className="inline text-sm" /> MVP
+            </div>
+            <div className="text-white text-sm font-display tracking-wider">
+              <GameIcon name={mvp.icon} className="inline text-base text-amber-400" /> {mvp.name}
+            </div>
             <div className="text-amber-400/70 text-[10px] font-mono uppercase tracking-widest">{mvp.trait}</div>
           </div>
         )}

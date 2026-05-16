@@ -4,6 +4,7 @@ import { useGame } from '../../../context/GameContext';
 import { HeaderBar } from '../../HeaderBar';
 import { useMatchNav } from '../MatchScreen';
 import { TutorialTip } from '../../TutorialTip';
+import { GameIcon } from '../../GameIcon';
 
 const PENALTY_STEPS = [
   {
@@ -54,7 +55,7 @@ export function PenaltyPhase() {
           <span className="text-[#5CDFFF] text-[10px] uppercase tracking-[0.2em] font-mono">[P1]</span>
           <span className="neon-cyan text-2xl tabular-nums font-display">{state.penaltyPlayerScore}</span>
         </div>
-        <div className="chip chip-amber flicker">⚽ PENALTIES</div>
+        <div className="chip chip-amber flicker"><GameIcon name="soccer" className="text-xs" /> PENALTIES</div>
         <div className="flex items-center gap-2">
           <span className="neon-red text-2xl tabular-nums font-display">{state.penaltyOpponentScore}</span>
           <span className="text-[#ff5a7a] text-[10px] uppercase tracking-[0.2em] font-mono">[E1]</span>
@@ -72,9 +73,10 @@ export function PenaltyPhase() {
 
         {!state.penaltyPhaseOver && (
           <>
-            <div className="text-6xl z-10 drop-shadow-[0_0_20px_rgba(92,223,255,0.5)]">
-              {isPlayerTurn ? '⚽' : '🧤'}
-            </div>
+            <GameIcon
+              name={isPlayerTurn ? 'soccer' : 'hand'}
+              className="text-6xl z-10 text-[#5CDFFF] drop-shadow-[0_0_20px_rgba(92,223,255,0.5)]"
+            />
             <div className="chip z-10">
               KICK #{state.penaltyRound + 1} // {isPlayerTurn ? 'YOUR TURN' : "CPU'S TURN"}
             </div>
@@ -83,7 +85,7 @@ export function PenaltyPhase() {
                 onClick={() => dispatch({ type: 'KICK_PENALTY' })}
                 className="cyber-btn clip-cyber-btn px-12 py-3 text-sm z-10"
               >
-                ⚽ TAKE KICK
+                <GameIcon name="soccer" className="text-base" /> TAKE KICK
               </button>
             ) : (
               <div className="text-[#5CDFFF]/60 text-[10px] uppercase tracking-[0.3em] flicker font-mono z-10">
@@ -95,9 +97,12 @@ export function PenaltyPhase() {
 
         {state.penaltyPhaseOver && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center gap-4 z-10">
-            <div className="text-6xl drop-shadow-[0_0_20px_rgba(92,223,255,0.5)]">
-              {state.penaltyPlayerScore > state.penaltyOpponentScore ? '🏆' : '✕'}
-            </div>
+            <GameIcon
+              name={state.penaltyPlayerScore > state.penaltyOpponentScore ? 'trophy' : 'close'}
+              className={`text-6xl drop-shadow-[0_0_20px_rgba(92,223,255,0.5)] ${
+                state.penaltyPlayerScore > state.penaltyOpponentScore ? 'text-[#5CDFFF]' : 'text-[#ff5a7a]'
+              }`}
+            />
             <div
               className={`text-xl uppercase tracking-[0.3em] text-center font-display ${
                 state.penaltyPlayerScore > state.penaltyOpponentScore ? 'neon-cyan' : 'neon-red'
@@ -138,7 +143,7 @@ function KickRow({ label, color, kicks }: { label: string; color: string; kicks:
                   : 'border-[#ff2e63]/40 text-[#ff5a7a]/70 bg-[#ff2e63]/10'
               }`}
             >
-              {k.result === 'goal' ? '⚽' : '✕'}
+              <GameIcon name={k.result === 'goal' ? 'soccer' : 'close'} className="text-xs" />
             </motion.div>
           );
         })}

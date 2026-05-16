@@ -6,6 +6,7 @@ import { PlayerCardComponent } from '../../PlayerCardComponent';
 import { ActionCardComponent } from '../../ActionCardComponent';
 import { useMatchNav } from '../MatchScreen';
 import { TutorialTip } from '../../TutorialTip';
+import { GameIcon, GameIconName } from '../../GameIcon';
 
 const RESULT_STEPS = [
   {
@@ -38,13 +39,13 @@ const RESULT_STEPS = [
   },
 ];
 
-const outcomeConfig: Record<RoundOutcome, { label: string; color: string; icon: string; glow: string }> = {
-  goal:        { label: '⬢ GOAL ⬢',  color: 'neon-lime',    icon: '⚽', glow: 'rgba(182,255,61,0.6)' },
-  saved:       { label: 'SAVED',     color: 'neon-cyan',    icon: '🧤', glow: 'rgba(92,223,255,0.6)' },
-  blocked:     { label: 'BLOCKED',   color: 'text-gray-300',icon: '🚫', glow: 'rgba(200,200,200,0.4)' },
-  missed:      { label: 'MISSED',    color: 'text-amber-400',icon: '💨', glow: 'rgba(255,180,61,0.5)' },
-  foul:        { label: 'FOUL',      color: 'text-amber-500',icon: '🟡', glow: 'rgba(255,180,61,0.5)' },
-  'red-card':  { label: '⚠ RED CARD ⚠', color: 'neon-magenta', icon: '🟥', glow: 'rgba(255,61,247,0.7)' },
+const outcomeConfig: Record<RoundOutcome, { label: string; color: string; icon: GameIconName; glow: string }> = {
+  goal:        { label: 'GOAL',     color: 'neon-lime',     icon: 'soccer', glow: 'rgba(182,255,61,0.6)' },
+  saved:       { label: 'SAVED',    color: 'neon-cyan',     icon: 'hand', glow: 'rgba(92,223,255,0.6)' },
+  blocked:     { label: 'BLOCKED',  color: 'text-gray-300', icon: 'block', glow: 'rgba(200,200,200,0.4)' },
+  missed:      { label: 'MISSED',   color: 'text-amber-400',icon: 'wind', glow: 'rgba(255,180,61,0.5)' },
+  foul:        { label: 'FOUL',     color: 'text-amber-500',icon: 'yellow-card', glow: 'rgba(255,180,61,0.5)' },
+  'red-card':  { label: 'RED CARD', color: 'neon-magenta',  icon: 'red-card', glow: 'rgba(255,61,247,0.7)' },
 };
 
 export function RoundResultPhase() {
@@ -69,10 +70,10 @@ export function RoundResultPhase() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 200 }}
-          className="text-7xl z-10"
+          className="z-10"
           style={{ filter: `drop-shadow(0 0 20px ${oc.glow})` }}
         >
-          {oc.icon}
+          <GameIcon name={oc.icon} className={`text-7xl ${oc.color}`} />
         </motion.div>
 
         <motion.div
@@ -96,19 +97,19 @@ export function RoundResultPhase() {
         )}
 
         <div className="text-gray-500 text-[11px] text-center uppercase tracking-[0.2em] font-mono z-10">
-          {result.scenario.icon} {result.scenario.title} <span className="text-[#5CDFFF]/40">//</span> YOU {result.playerAttacking ? 'ATTACKED' : 'DEFENDED'}
+          <GameIcon name={result.scenario.icon} className="inline text-sm text-[#5CDFFF]/60" /> {result.scenario.title} <span className="text-[#5CDFFF]/40">//</span> YOU {result.playerAttacking ? 'ATTACKED' : 'DEFENDED'}
         </div>
 
         {/* Cards used */}
         <div className="flex flex-wrap items-start justify-center gap-3 mt-2 w-full z-10">
           <div className="flex flex-col items-center gap-1">
-            <span className="chip chip-lime">⚔ ATKR</span>
+            <span className="chip chip-lime"><GameIcon name="score" className="text-xs" /> ATKR</span>
             <PlayerCardComponent card={result.attackerCard} size="sm" />
             <ActionCardComponent card={result.attackAction} size="sm" />
           </div>
           <div className="text-[#5CDFFF]/60 self-center text-lg font-display pt-10">⟷</div>
           <div className="flex flex-col items-center gap-1">
-            <span className="chip">🛡 DEFR</span>
+            <span className="chip"><GameIcon name="shield" className="text-xs" /> DEFR</span>
             <PlayerCardComponent card={result.defenderCard} size="sm" />
             <ActionCardComponent card={result.defenseAction} size="sm" />
           </div>
@@ -116,12 +117,12 @@ export function RoundResultPhase() {
 
         {result.outcome === 'red-card' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="cyber-panel cyber-panel-magenta clip-cyber px-4 py-2 max-w-xs text-center z-10">
-            <span className="neon-magenta text-[11px] uppercase tracking-widest font-mono">⚠ DEFENDER PURGED FROM ROSTER</span>
+            <span className="neon-magenta text-[11px] uppercase tracking-widest font-mono"><GameIcon name="warning" className="inline text-sm" /> DEFENDER PURGED FROM ROSTER</span>
           </motion.div>
         )}
         {result.outcome === 'foul' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="cyber-panel clip-cyber px-4 py-2 max-w-xs text-center border-amber-500/40 z-10">
-            <span className="text-amber-400 text-[11px] uppercase tracking-widest font-mono">⚠ FOUL // ATTACK DISRUPTED</span>
+            <span className="text-amber-400 text-[11px] uppercase tracking-widest font-mono"><GameIcon name="warning" className="inline text-sm" /> FOUL // ATTACK DISRUPTED</span>
           </motion.div>
         )}
       </div>

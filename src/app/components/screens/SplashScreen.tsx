@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
+import { GameIcon } from '../GameIcon';
 
 export function SplashScreen() {
   const navigate = useNavigate();
@@ -26,14 +27,13 @@ export function SplashScreen() {
         className="flex flex-col items-center gap-6 z-10"
       >
         <div className="relative">
-          <div className="text-7xl drop-shadow-[0_0_24px_rgba(92,223,255,0.7)]">⚽</div>
+          <GameIcon name="soccer" className="text-7xl text-[#5CDFFF] drop-shadow-[0_0_24px_rgba(92,223,255,0.7)]" />
           <div className="absolute -inset-6 border border-[#5CDFFF]/30 clip-cyber pointer-events-none" />
         </div>
 
         <div className="text-center relative">
           <h1
             className="neon-cyan text-3xl tracking-[0.4em] uppercase font-display glitch-hover"
-            style={{ fontFamily: 'Orbitron, sans-serif' }}
           >
             PITCH<span className="text-[#ff3df7] drop-shadow-[0_0_10px_rgba(255,61,247,0.6)]">/</span>DUEL
           </h1>

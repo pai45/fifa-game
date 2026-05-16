@@ -8,6 +8,7 @@ import { HeaderBar } from '../HeaderBar';
 import { ConfirmDialog } from '../ConfirmDialog';
 import { Toast } from '../Toast';
 import { TutorialTip } from '../TutorialTip';
+import { GameIcon } from '../GameIcon';
 
 const DECK_STEPS = [
   {
@@ -26,7 +27,7 @@ const DECK_STEPS = [
       <>
         Card borders show tier — <span className="text-gray-300">silver</span>,{' '}
         <span className="text-amber-400">gold</span>, <span className="neon-magenta">purple</span>.
-        Higher tiers hit harder. Cards with <span className="neon-red">⚠</span> are risky and can backfire.
+        Higher tiers hit harder. Cards with <GameIcon name="warning" className="inline text-sm neon-red" /> are risky and can backfire.
       </>
     ),
   },
@@ -136,7 +137,7 @@ export function DeckBuilderScreen() {
 
       {actionImbalanced && (
         <div className="bg-[#ffb13d]/10 border-b border-[#ffb13d]/40 px-4 py-2 text-[#ffb13d] text-[11px] text-center font-mono uppercase tracking-widest">
-          ⚠ Add at least one {actionAtk === 0 ? 'attack' : 'defense'} action — you'll need it!
+          <GameIcon name="warning" className="inline text-sm" /> Add at least one {actionAtk === 0 ? 'attack' : 'defense'} action - you'll need it!
         </div>
       )}
 

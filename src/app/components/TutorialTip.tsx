@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState, ReactNode } from 'react';
 import { hasSeen, markSeen, skipAll, TutorialKey } from '../tutorial';
+import { GameIcon } from './GameIcon';
 
 interface Step {
   title: string;
@@ -81,7 +82,7 @@ export function TutorialTip({ tutorialKey, steps, autoOpen = true, forceOpen, on
                 className="text-[10px] uppercase tracking-[0.2em] text-gray-500 hover:text-[#ff5a7a] font-mono transition-colors"
                 aria-label="Skip all tutorials"
               >
-                SKIP ALL ✕
+                SKIP ALL <GameIcon name="close" className="inline text-xs" />
               </button>
             </div>
 

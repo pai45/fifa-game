@@ -3,6 +3,7 @@ import { useGame } from '../../../context/GameContext';
 import { HeaderBar } from '../../HeaderBar';
 import { ScoreBar } from '../../ScoreBar';
 import { TutorialTip } from '../../TutorialTip';
+import { GameIcon } from '../../GameIcon';
 
 const MATCH_END_STEPS = [
   {
@@ -52,8 +53,11 @@ export function MatchEndPhase() {
           }}
         />
 
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-6xl z-10 drop-shadow-[0_0_20px_rgba(92,223,255,0.5)]">
-          {tied ? '⚖' : playerWins ? '🏆' : '✕'}
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="z-10 drop-shadow-[0_0_20px_rgba(92,223,255,0.5)]">
+          <GameIcon
+            name={tied ? 'balance' : playerWins ? 'trophy' : 'close'}
+            className={`text-6xl ${tied ? 'text-amber-400' : playerWins ? 'text-[#5CDFFF]' : 'text-[#ff5a7a]'}`}
+          />
         </motion.div>
         <div
           className={`text-2xl uppercase tracking-[0.3em] text-center font-display z-10 ${
@@ -72,7 +76,9 @@ export function MatchEndPhase() {
           {state.roundResults.map((r) => (
             <div key={r.round} className="flex items-center justify-between px-3 py-2 text-[11px] border-b border-[#1e2538]/60 last:border-0 font-mono">
               <span className="text-[#5CDFFF]/60 w-6">R{r.round}</span>
-              <span className="text-gray-400 flex-1 truncate px-2 uppercase tracking-wider">{r.scenario.icon} {r.scenario.title}</span>
+              <span className="text-gray-400 flex-1 truncate px-2 uppercase tracking-wider">
+                <GameIcon name={r.scenario.icon} className="inline text-sm text-[#5CDFFF]/60" /> {r.scenario.title}
+              </span>
               <span
                 className={`uppercase tracking-widest ${
                   r.outcome === 'goal'
@@ -93,7 +99,7 @@ export function MatchEndPhase() {
             onClick={() => dispatch({ type: 'GO_TO_PENALTY' })}
             className="cyber-btn-warn clip-cyber-btn w-full py-3 text-sm tracking-[0.25em] uppercase font-display"
           >
-            ⚽ PENALTY SHOOTOUT
+            <GameIcon name="soccer" className="text-base" /> PENALTY SHOOTOUT
           </button>
         ) : (
           <button

@@ -5,6 +5,7 @@ import { HeaderBar } from '../../HeaderBar';
 import { ScoreBar } from '../../ScoreBar';
 import { useMatchNav } from '../MatchScreen';
 import { TutorialTip } from '../../TutorialTip';
+import { GameIcon } from '../../GameIcon';
 
 const TOSS_STEPS = [
   {
@@ -44,13 +45,18 @@ export function TossPhase() {
 
   useEffect(() => {
     if (state.phase === 'toss-result' && !state.playerWonToss && opponentChoice === null) {
-      const oppAttacks = Math.random() > 0.5;
-      setOpponentChoice(oppAttacks);
-      const t = setTimeout(() => {
-        dispatch({ type: 'CHOOSE_ROLE', attacking: !oppAttacks });
-      }, 1800);
-      return () => clearTimeout(t);
+      setOpponentChoice(Math.random() > 0.5);
     }
+  }, [state.phase, state.playerWonToss, opponentChoice]);
+
+  useEffect(() => {
+    if (state.phase !== 'toss-result' || state.playerWonToss || opponentChoice === null) return;
+
+    const t = setTimeout(() => {
+      dispatch({ type: 'CHOOSE_ROLE', attacking: !opponentChoice });
+    }, 1800);
+
+    return () => clearTimeout(t);
   }, [state.phase, state.playerWonToss, opponentChoice, dispatch]);
 
   return (
@@ -65,7 +71,7 @@ export function TossPhase() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center gap-6 z-10">
             <div className="text-[10px] text-[#5CDFFF]/60 font-mono uppercase tracking-[0.3em]">▸ Initiating Toss</div>
             <div className="relative">
-              <div className="text-6xl drop-shadow-[0_0_20px_rgba(92,223,255,0.5)]">🪙</div>
+              <GameIcon name="coin" className="text-6xl text-[#5CDFFF] drop-shadow-[0_0_20px_rgba(92,223,255,0.5)]" />
               <div className="absolute -inset-4 border border-[#5CDFFF]/30 clip-cyber pointer-events-none" />
             </div>
             <p className="neon-cyan text-xs uppercase tracking-[0.3em] font-mono">Select Your Call</p>
@@ -102,14 +108,14 @@ export function TossPhase() {
               transition={{ duration: 0.6 }}
               className="text-6xl drop-shadow-[0_0_20px_rgba(92,223,255,0.6)]"
             >
-              🪙
+              <GameIcon name="coin" className="text-6xl text-[#5CDFFF]" />
             </motion.div>
             <div className="text-center">
               <p className="text-[10px] text-[#5CDFFF]/60 font-mono uppercase tracking-[0.3em] mb-1">
                 Result // {state.tossResult}
               </p>
               <p className={`text-lg uppercase tracking-[0.2em] font-display ${state.playerWonToss ? 'neon-cyan' : 'neon-red'}`}>
-                {state.playerWonToss ? '◆ YOU WON THE TOSS ◆' : '✕ OPPONENT WINS TOSS'}
+                {state.playerWonToss ? 'YOU WON THE TOSS' : 'OPPONENT WINS TOSS'}
               </p>
             </div>
 
@@ -121,13 +127,13 @@ export function TossPhase() {
                     onClick={() => handleChooseRole(true)}
                     className="clip-cyber-btn w-32 py-3 text-sm uppercase tracking-[0.2em] font-display border border-[#b6ff3d] text-[#b6ff3d] bg-[#b6ff3d]/10 hover:bg-[#b6ff3d]/20 shadow-[0_0_18px_rgba(182,255,61,0.3)] transition-all"
                   >
-                    ⚔ ATTACK
+                    <GameIcon name="score" className="text-base" /> ATTACK
                   </button>
                   <button
                     onClick={() => handleChooseRole(false)}
                     className="clip-cyber-btn w-32 py-3 text-sm uppercase tracking-[0.2em] font-display border border-[#5CDFFF] neon-cyan bg-[#5CDFFF]/10 hover:bg-[#5CDFFF]/20 shadow-[0_0_18px_rgba(92,223,255,0.3)] transition-all"
                   >
-                    🛡 DEFEND
+                    <GameIcon name="shield" className="text-base" /> DEFEND
                   </button>
                 </div>
               </div>

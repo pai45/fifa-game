@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext, useContext } from 'react';
+import { useCallback, useEffect, useMemo, useState, createContext, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { useGame } from '../../context/GameContext';
 import { ALL_ATTACKERS, ALL_DEFENDERS, ALL_ACTIONS } from '../../data/cards';
@@ -26,14 +26,29 @@ export function MatchScreen() {
   const navigate = useNavigate();
   const [confirmQuit, setConfirmQuit] = useState(false);
 
+  const startFreshMatch = useCallback(() => {
+    const opponentAttackers = [...ALL_ATTACKERS].sort(() => Math.random() - 0.5).slice(0, 2);
+    const opponentDefenders = [...ALL_DEFENDERS].sort(() => Math.random() - 0.5).slice(0, 2);
+    const opponentActions = [...ALL_ACTIONS].sort(() => Math.random() - 0.5).slice(0, 6);
+
+    dispatch({ type: 'START_MATCH', opponentAttackers, opponentDefenders, opponentActions });
+  }, [dispatch]);
+
+  const invalidMatchState = useMemo(() => {
+    const hasNoResult = state.roundResults.length === 0;
+
+    return (
+      (state.phase === 'play' && !state.currentScenario) ||
+      ((state.phase === 'resolving' || state.phase === 'round-result') && hasNoResult) ||
+      ((state.phase === 'match-end' || state.phase === 'final') && hasNoResult)
+    );
+  }, [state.currentScenario, state.phase, state.roundResults.length]);
+
   useEffect(() => {
-    if (state.phase === 'idle') {
-      const oppAtk = [...ALL_ATTACKERS].sort(() => Math.random() - 0.5).slice(0, 2);
-      const oppDef = [...ALL_DEFENDERS].sort(() => Math.random() - 0.5).slice(0, 2);
-      const oppAct = [...ALL_ACTIONS].sort(() => Math.random() - 0.5).slice(0, 6);
-      dispatch({ type: 'START_MATCH', opponentAttackers: oppAtk, opponentDefenders: oppDef, opponentActions: oppAct });
+    if (state.phase === 'idle' || invalidMatchState) {
+      startFreshMatch();
     }
-  }, [state.phase, dispatch]);
+  }, [state.phase, invalidMatchState, startFreshMatch]);
 
   const matchInProgress =
     state.phase !== 'idle' &&

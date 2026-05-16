@@ -1,4 +1,5 @@
 import { ActionCard } from '../data/cards';
+import { GameIcon } from './GameIcon';
 
 const catStyles = {
   attack: {
@@ -62,7 +63,7 @@ export function ActionCardComponent({ card, selected, disabled, used, onClick, s
         +{card.power}
       </div>
 
-      <span className={`${size === 'sm' ? 'text-lg' : 'text-xl'} mt-1`}>{card.icon}</span>
+      <GameIcon name={card.icon} className={`${size === 'sm' ? 'text-lg' : 'text-xl'} mt-1 ${cat.label}`} />
       <span className={`text-white ${size === 'sm' ? 'text-[9px]' : 'text-[10px]'} text-center leading-tight font-display tracking-wider uppercase`}>
         {card.title}
       </span>
@@ -72,7 +73,7 @@ export function ActionCardComponent({ card, selected, disabled, used, onClick, s
 
       {card.risky && (
         <div className="absolute bottom-1 left-1 text-[8px] text-[#ff5a7a] font-mono uppercase tracking-widest drop-shadow-[0_0_4px_rgba(255,46,99,0.6)]">
-          ⚠
+          <GameIcon name="warning" className="text-xs" />
         </div>
       )}
 
