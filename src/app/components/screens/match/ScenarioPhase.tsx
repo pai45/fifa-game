@@ -12,10 +12,10 @@ const SCENARIO_STEPS = [
     title: 'Scenario Briefing',
     body: (
       <>
-        Each round drops you into a different football situation —
+        Each round has a football situation:
         <span className="neon-cyan"> counter attack</span>,{' '}
         <span className="neon-cyan">set piece</span>,{' '}
-        <span className="neon-cyan">box defense</span>, etc.
+        <span className="neon-cyan">box defense</span>, and more.
       </>
     ),
   },
@@ -23,15 +23,15 @@ const SCENARIO_STEPS = [
     title: 'Bonus Stats',
     body: (
       <>
-        Watch the <span className="text-[#b6ff3d]">ATK +X</span> and{' '}
-        <span className="neon-cyan">DEF +X</span> chips — they're added to your power
-        for this round. A high-attack scenario favors the attacker.
+        <span className="text-[#b6ff3d]">ATK +X</span> and{' '}
+        <span className="neon-cyan">DEF +X</span> are added this round. Bigger
+        attack bonus favors the attacker.
       </>
     ),
   },
   {
     title: 'Your Role',
-    body: <>The big banner shows whether you're attacking or defending this round. Plan your card choice around it.</>,
+    body: <>The banner shows your role. Pick cards around attack or defense.</>,
   },
 ];
 

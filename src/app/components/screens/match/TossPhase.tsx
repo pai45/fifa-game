@@ -12,8 +12,8 @@ const TOSS_STEPS = [
     title: 'Coin Toss',
     body: (
       <>
-        Pick <span className="neon-cyan">HEADS</span> or <span className="neon-cyan">TAILS</span>, then
-        flip the coin. Winner of the toss picks attack or defense for round 1.
+        Pick <span className="neon-cyan">HEADS</span> or <span className="neon-cyan">TAILS</span>.
+        The winner chooses attack or defense for round 1.
       </>
     ),
   },
@@ -21,9 +21,8 @@ const TOSS_STEPS = [
     title: 'Roles Alternate',
     body: (
       <>
-        This is the <span className="text-[#b6ff3d]">only toss</span> all match.
-        After round 1, attack/defense roles flip automatically each round, so
-        both sides get equal chances.
+        This is the <span className="text-[#b6ff3d]">only toss</span>. After
+        round 1, roles flip automatically each round.
       </>
     ),
   },

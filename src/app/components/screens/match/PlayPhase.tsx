@@ -12,8 +12,8 @@ const PLAY_STEPS = [
     title: 'Pick Your Player',
     body: (
       <>
-        Choose one player card from your roster. The <span className="neon-cyan">OVR</span> number
-        is their base power. Once used, a card is grayed out for the rest of the match.
+        Choose one player. <span className="neon-cyan">OVR</span> is base
+        power. Used players are locked for the match.
       </>
     ),
   },
@@ -21,10 +21,10 @@ const PLAY_STEPS = [
     title: 'Pick an Action',
     body: (
       <>
-        Then pick one action card. Actions are filtered by your role —
+        Pick one action. Options match your role:
         <span className="text-[#b6ff3d]"> ATK</span> when attacking,{' '}
         <span className="neon-cyan">DEF</span> when defending,{' '}
-        <span className="neon-magenta">SPC</span> always usable.
+        <span className="neon-magenta">SPC</span> anytime.
       </>
     ),
   },
@@ -32,9 +32,8 @@ const PLAY_STEPS = [
     title: 'Risky Cards',
     body: (
       <>
-        Cards with <GameIcon name="warning" className="inline text-sm neon-red" /> are <span className="neon-red">risky</span> —
-        they give a big power boost but can backfire with a foul or red card.
-        A red card removes a player for the rest of the match.
+        <GameIcon name="warning" className="inline text-sm neon-red" /> cards
+        boost power but can cause fouls or red cards. Red cards remove a player.
       </>
     ),
   },
@@ -42,9 +41,8 @@ const PLAY_STEPS = [
     title: 'Read the Preview',
     body: (
       <>
-        The <span className="neon-cyan">EST</span> panel shows your estimated power:
-        <span className="text-[#5CDFFF]/70"> rating + action + scenario bonus</span>.
-        The CPU's number is hidden — luck still has the final say.
+        <span className="neon-cyan">EST</span> shows rating + action + scenario
+        bonus. CPU power is hidden, and luck still matters.
       </>
     ),
   },

@@ -3,13 +3,13 @@ import { HeaderBar } from '../HeaderBar';
 import { GameIcon, GameIconName } from '../GameIcon';
 
 const steps: { icon: GameIconName; code: string; title: string; desc: string }[] = [
-  { icon: 'cards', code: '01', title: 'Your Deck', desc: '2 attackers, 2 defenders, and 6 action cards. A default loadout is preloaded - customize anytime in Deck Builder.' },
-  { icon: 'coin', code: '02', title: 'Coin Toss (Round 1)', desc: 'Call heads or tails. If you win, choose attack or defense. Roles alternate automatically each round after.' },
-  { icon: 'brief', code: '03', title: 'Scenario', desc: 'Each round has a unique football scenario that boosts attack and/or defense power.' },
-  { icon: 'score', code: '04', title: 'Play Cards', desc: 'Pick one player card and one action card. Action cards are filtered by your role (attack vs defense).' },
-  { icon: 'stats', code: '05', title: 'Resolution', desc: 'Card rating + action power + scenario bonus + a bit of luck decide the outcome. Even big advantages aren\'t guaranteed.' },
-  { icon: 'alert', code: '06', title: 'Risky Actions', desc: 'High-power risky cards can backfire - fouls or red cards remove a card for the rest of the match.' },
-  { icon: 'soccer', code: '07', title: 'Tiebreaker', desc: 'If tied after 4 rounds, sudden-death penalty shootout decides the winner.' },
+  { icon: 'cards', code: '01', title: 'Your Deck', desc: '2 attackers, 2 defenders, 6 actions. Use the default deck or customize it.' },
+  { icon: 'coin', code: '02', title: 'Coin Toss (Round 1)', desc: 'Call the toss. Winner chooses attack or defense; roles alternate after.' },
+  { icon: 'brief', code: '03', title: 'Scenario', desc: 'Each round adds attack and/or defense bonuses.' },
+  { icon: 'score', code: '04', title: 'Play Cards', desc: 'Pick one player and one role-matched action.' },
+  { icon: 'stats', code: '05', title: 'Resolution', desc: 'Rating + action + scenario + luck decide the result.' },
+  { icon: 'alert', code: '06', title: 'Risky Actions', desc: 'High-power risks can cause fouls or red cards.' },
+  { icon: 'soccer', code: '07', title: 'Tiebreaker', desc: 'A 4-round tie goes to penalties.' },
 ];
 
 export function HowToPlayScreen() {
@@ -32,7 +32,7 @@ export function HowToPlayScreen() {
             </div>
           ))}
           <button
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/')}
             className="cyber-btn clip-cyber-btn mt-2 py-3 text-xs"
           >
             ACKNOWLEDGE

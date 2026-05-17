@@ -13,7 +13,7 @@ const RESULT_STEPS = [
     title: 'Round Resolved',
     body: (
       <>
-        The big label shows the outcome: <span className="neon-lime">GOAL</span>,{' '}
+        The label shows: <span className="neon-lime">GOAL</span>,{' '}
         <span className="neon-cyan">SAVED</span>, <span className="text-amber-400">MISSED</span>,{' '}
         <span className="text-amber-500">FOUL</span>, or <span className="neon-magenta">RED CARD</span>.
       </>
@@ -23,8 +23,7 @@ const RESULT_STEPS = [
     title: 'Used Cards',
     body: (
       <>
-        Both cards used this round are shown side-by-side. Used player cards are
-        marked <span className="text-amber-400">USED</span> in your roster and can't be replayed.
+        Round cards appear side-by-side. Used players are marked <span className="text-amber-400">USED</span> and cannot replay.
       </>
     ),
   },
@@ -32,8 +31,8 @@ const RESULT_STEPS = [
     title: 'Next Round',
     body: (
       <>
-        Tap <span className="neon-cyan">NEXT ROUND</span> to continue. Roles automatically
-        switch, so if you attacked this round, you'll defend next.
+        Tap <span className="neon-cyan">NEXT ROUND</span>. Roles switch each
+        round, so attack becomes defense.
       </>
     ),
   },

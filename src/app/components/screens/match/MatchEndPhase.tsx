@@ -10,22 +10,21 @@ const MATCH_END_STEPS = [
     title: 'Full Time',
     body: (
       <>
-        All 4 rounds are done. The big banner shows the result —{' '}
+        After 4 rounds, the banner shows{' '}
         <span className="neon-cyan">VICTORY</span>, <span className="neon-red">DEFEAT</span>,
-        or <span className="text-amber-400">DEADLOCK</span> if scores are tied.
+        or <span className="text-amber-400">DEADLOCK</span>.
       </>
     ),
   },
   {
     title: 'Round Log',
-    body: <>The log recaps every round's scenario and outcome so you can see how the match unfolded.</>,
+    body: <>The log recaps each scenario and outcome.</>,
   },
   {
     title: 'Tied? Penalties!',
     body: (
       <>
-        If the match is a draw, you'll be sent into a{' '}
-        <span className="text-amber-400">penalty shootout</span> to decide the winner.
+        A draw goes to a <span className="text-amber-400">penalty shootout</span>.
       </>
     ),
   },

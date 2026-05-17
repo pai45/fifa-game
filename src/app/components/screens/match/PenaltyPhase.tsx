@@ -11,8 +11,8 @@ const PENALTY_STEPS = [
     title: 'Sudden Death',
     body: (
       <>
-        The match ended tied. It's now a <span className="text-amber-400">penalty shootout</span> —
-        alternating kicks until someone leads after both sides have kicked equally (min 6 kicks).
+        Tied match: <span className="text-amber-400">penalty shootout</span>.
+        Kicks alternate until someone leads after equal attempts.
       </>
     ),
   },
@@ -20,8 +20,8 @@ const PENALTY_STEPS = [
     title: 'How It Works',
     body: (
       <>
-        Tap <span className="neon-cyan">TAKE KICK</span> on your turn. CPU kicks fire automatically.
-        Each kick has a base ~65–75% chance to score.
+        Tap <span className="neon-cyan">TAKE KICK</span> on your turn. CPU kicks
+        auto-fire. Each kick has about a 65-75% score chance.
       </>
     ),
   },

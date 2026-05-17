@@ -8,14 +8,13 @@ import { GameIcon } from '../../GameIcon';
 const FINAL_STEPS = [
   {
     title: 'Match Archive',
-    body: <>The final scoreline (plus penalties if it went there) is saved here as your match summary.</>,
+    body: <>Final scoreline, plus penalties if needed, appears here.</>,
   },
   {
     title: 'MVP',
     body: (
       <>
-        The <span className="text-amber-400">MVP</span> card is your top scorer this match —
-        the player whose action led to a goal.
+        <span className="text-amber-400">MVP</span> goes to your goal scorer.
       </>
     ),
   },
@@ -23,9 +22,9 @@ const FINAL_STEPS = [
     title: 'What Next?',
     body: (
       <>
-        <span className="neon-cyan">↻ REMATCH</span> replays with the same deck.{' '}
-        <span className="neon-cyan">HOME</span> returns to the main menu.{' '}
-        <span className="neon-cyan">DECK</span> lets you re-tune your squad before the next match.
+        <span className="neon-cyan">↻ REMATCH</span> uses the same deck.{' '}
+        <span className="neon-cyan">HOME</span> exits.{' '}
+        <span className="neon-cyan">DECK</span> opens squad tuning.
       </>
     ),
   },
@@ -42,7 +41,7 @@ export function FinalResultPhase() {
   const mvp = state.roundResults.find(r => r.outcome === 'goal' && r.playerAttacking)?.attackerCard;
 
   const rematch = () => { dispatch({ type: 'RESET' }); navigate('/match'); };
-  const goHome = () => { dispatch({ type: 'RESET' }); navigate('/home'); };
+  const goHome = () => { dispatch({ type: 'RESET' }); navigate('/'); };
 
   return (
     <div className="min-h-screen flex flex-col scanlines">

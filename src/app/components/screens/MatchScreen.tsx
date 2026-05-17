@@ -59,14 +59,14 @@ export function MatchScreen() {
     if (matchInProgress) setConfirmQuit(true);
     else {
       dispatch({ type: 'RESET' });
-      navigate('/home');
+      navigate('/');
     }
   };
 
   const confirmAndQuit = () => {
     setConfirmQuit(false);
     dispatch({ type: 'RESET' });
-    navigate('/home');
+    navigate('/');
   };
 
   const renderPhase = () => {

@@ -44,6 +44,7 @@ export function PlayerCardComponent({ card, selected, disabled, redCarded, used,
   const isInactive = disabled || redCarded || used;
   const [imageFailed, setImageFailed] = useState(false);
   const isSmall = size === 'sm';
+  const roleLabel = card.role === 'attacker' ? 'ATK' : 'DEF';
   const w = isSmall ? 'w-24' : 'w-32';
   const h = isSmall ? 'h-36' : 'h-48';
 
@@ -84,7 +85,7 @@ export function PlayerCardComponent({ card, selected, disabled, redCarded, used,
       </div>
 
       <div className={`absolute top-1.5 left-1.5 z-30 bg-black/55 px-1.5 py-0.5 border border-white/15 ${tier.text} font-display font-black uppercase tracking-[0.06em] ${isSmall ? 'text-[6px]' : 'text-[7px]'}`}>
-        {card.role}
+        {roleLabel}
       </div>
 
       <div className="absolute inset-x-1 bottom-[24%] z-30 bg-[linear-gradient(180deg,rgba(46,46,50,0.46),rgba(29,31,37,0.94))] px-1.5 py-1 backdrop-blur-[1px] border-t border-white/10">
